@@ -1,4 +1,4 @@
-"""Route-level tests. The OpenAI call is monkeypatched so these run without
+"""Route-level tests. The Gemini call is monkeypatched so these run without
 a real API key or network access; OCR/Tesseract isn't exercised here since
 it's a system dependency this test environment may not have installed —
 see extraction.py for the extraction logic itself.
@@ -52,3 +52,27 @@ def test_summarize_returns_summary_for_pasted_text(client, monkeypatch):
     body = res.get_json()
     assert body["summary"] == "summary of: Some terms and conditions."
     assert body["usedOcr"] is False
+    assert "remainingToday" in body
+
+
+def test_daily_cap_returns_429_once_exhausted(client, monkeypatch):
+    from usage_limit import DailyLimiter
+
+    monkeypatch.setattr(app_module, "summarize", lambda text: "should not be reached")
+    monkeypatch.setattr(app_module, "daily_limiter", DailyLimiter(max_per_day=0))
+
+    res = client.post("/summarize", data={"text": "Some terms and conditions."})
+    assert res.status_code == 429
+    assert "error" in res.get_json()
+
+
+def test_validation_failures_do_not_consume_daily_quota(client, monkeypatch):
+    from usage_limit import DailyLimiter
+
+    limiter = DailyLimiter(max_per_day=1)
+    monkeypatch.setattr(app_module, "daily_limiter", limiter)
+
+    # Invalid input should be rejected before touching the daily quota.
+    res = client.post("/summarize", data={"text": ""})
+    assert res.status_code == 400
+    assert limiter.remaining == 1
