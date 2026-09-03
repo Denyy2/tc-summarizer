@@ -21,4 +21,4 @@ EXPOSE 5000
 # own count, silently multiplying the effective daily limit. Fine for a
 # low-traffic portfolio demo; swap to a shared store (e.g. Redis) first if
 # this ever needs real concurrency.
-CMD gunicorn --bind 0.0.0.0:$PORT --workers 1 --timeout 60 app:app
+CMD gunicorn --bind 0.0.0.0:$PORT --workers 1 --timeout 120 app:app

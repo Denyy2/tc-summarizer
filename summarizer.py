@@ -15,12 +15,19 @@ from google.genai import types
 from google.genai.errors import APIError
 
 # Configurable so the model can be swapped without a code change.
-GEMINI_MODEL = os.getenv("GEMINI_MODEL", "gemini-2.5-flash")
+GEMINI_MODEL = os.getenv("GEMINI_MODEL", "gemini-flash-lite-latest")
 
 # Keeps a single very long document from blowing the context window or
 # eating an outsized share of the daily free quota on one request.
 MAX_INPUT_CHARS = 20_000
-MAX_OUTPUT_TOKENS = 500
+MAX_OUTPUT_TOKENS = 700
+
+# gemini-flash-lite-latest was picked specifically for latency: the
+# non-lite gemini-3.6-flash took 60-90s per request in testing (it spends
+# an uncontrollable chunk of its output-token budget on internal "thinking"
+# — it rejects thinking_budget=0, unlike older 2.5-series models) versus
+# ~1s for the lite variant with equally usable summaries. If you swap models
+# via GEMINI_MODEL, re-check latency before assuming it's still fast.
 
 SYSTEM_PROMPT = (
     "You are a lawyer reviewing terms and conditions for a client. Summarize "

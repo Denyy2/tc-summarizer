@@ -30,7 +30,7 @@ is gone.
 
 ## Stack
 
-Flask · Gemini API (`gemini-2.5-flash` by default, configurable) · PyMuPDF · Tesseract OCR ·
+Flask · Gemini API (`gemini-flash-lite-latest` by default, configurable) · PyMuPDF · Tesseract OCR ·
 Flask-Limiter · vanilla HTML/CSS/JS frontend
 
 ## Local setup
