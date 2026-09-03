@@ -1,7 +1,12 @@
 # Terms & Conditions Summarizer
 
+**Live:** [tc-summarizer.onrender.com](https://tc-summarizer.onrender.com/)
+
 Paste dense legal text — or upload a PDF or scanned image — and get a plain-English summary
 of the key points and what to watch out for, powered by Google's Gemini API.
+
+> Hosted on Render's free tier, which spins down after 15 min idle — the first request after
+> a period of inactivity can take 30–60s to wake up. Subsequent requests are fast (~1–20s).
 
 ## How extraction works
 
