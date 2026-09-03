@@ -1,6 +1,6 @@
 # Terms & Conditions Summarizer
 
-**Live:** [tc-summarizer.onrender.com](https://tc-summarizer.onrender.com/)
+**Live:** [tc-summarizer.onrender.com](https://tc-summarizer.onrender.com/) · **Challenges faced building this:** [CHALLENGES.md](./CHALLENGES.md)
 
 Paste dense legal text — or upload a PDF or scanned image — and get a plain-English summary
 of the key points and what to watch out for, powered by Google's Gemini API.
