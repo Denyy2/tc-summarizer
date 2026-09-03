@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Terms & Conditions Summarizer</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+<body>
+  <main class="wrap">
+    <header class="hero">
+      <h1>Terms &amp; Conditions Summarizer</h1>
+      <p>
+        Paste a wall of legal text — or upload a PDF or scanned image — and get a
+        plain-English summary of what you're actually agreeing to.
+      </p>
+    </header>
+
+    <section class="card">
+      <div class="tabs" role="tablist">
+        <button class="tab active" data-mode="paste" type="button">Paste text</button>
+        <button class="tab" data-mode="upload" type="button">Upload PDF / image</button>
+      </div>
+
+      <div class="panel" data-panel="paste">
+        <textarea id="text-input" placeholder="Paste terms and conditions here…" rows="10"></textarea>
+        <div class="samples" id="samples"></div>
+      </div>
+
+      <div class="panel hidden" data-panel="upload">
+        <label class="dropzone" for="file-input">
+          <span id="file-label">Choose a PDF, PNG, or JPEG</span>
+          <input id="file-input" type="file" accept=".pdf,.png,.jpg,.jpeg,.webp" hidden />
+        </label>
+        <p class="hint">Scanned documents are OCR'd automatically — no need to pre-convert anything.</p>
+      </div>
+
+      <button id="submit-btn" class="submit" type="button">Summarize</button>
+      <p id="error" class="error hidden"></p>
+    </section>
+
+    <section id="result" class="card result hidden">
+      <div class="result-meta" id="result-meta"></div>
+      <div class="result-body" id="result-body"></div>
+    </section>
+  </main>
+
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
